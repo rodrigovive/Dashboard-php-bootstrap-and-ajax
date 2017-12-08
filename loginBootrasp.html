@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="public/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <section id="login" class="bg-dark fill-viewport">
+        <div class="container pt-3">
+            <div class="row justify-content-sm-center">
+                <div class="col-sm-6 col-md-4">
+
+                    <div class="card border-info text-center">
+                        <div class="card-header">
+                            Ingrese para continuar
+                        </div>
+                        <div class="card-body">
+                            <img src="https://placeimg.com/128/128/tech/sepia">
+                            <h4 class="text-center">Panel de Administracion</h4>
+                            <form class="form-signin">
+                                <input type="text" name="user" class="form-control mb-2" placeholder="Email" autofocus>
+                                <input type="password" name="password" class="form-control mb-2" placeholder="Password">
+                                <a class="btn btn-lg btn-primary btn-block mb-1" id="login">Entrar</a>
+                                <label class="checkbox float-left">
+                                    <input type="checkbox" value="remember-me"> Remember me
+                                </label>
+                                <a href="#" class="float-right">Need help?</a>
+                            </form>
+                        </div>
+                    </div>
+                    <a href="#" class="float-right">Crear una cuenta</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="public/js/login.js"></script>
+</body>
+
+</html>
