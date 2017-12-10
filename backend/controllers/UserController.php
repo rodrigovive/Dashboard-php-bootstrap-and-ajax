@@ -30,16 +30,19 @@ class UserController {
         }
 
         public function update($id,$data){
+            $realname= $data['name'];
+            $mail = $data['email'];
+            $pass = $data['password'];
+            $rol= $data['rol'];
+            $pass_encode = base64_encode($pass);
             $mysqli = $this->mysqli->conexion();
-            $sql="SELECT * FROM login WHERE id=$id";
-            $ressql=mysqli_query($mysqli,$sql);
-            while ($row=mysqli_fetch_row ($ressql)){
-                    $id=$row[0];
-                    $user=$row[1];
-                    $pass=$row[2];
-                    $email=$row[3];
-                    $pasadmin=$row[4];
-                }
+            $sentencia="update user set user='$realname', email='$mail', rol='$rol', password='$pass_encode' where id='$id'";
+            $resent=mysqli_query($mysqli,$sentencia);
+            if ($resent==null) {
+                echo 'no guardo';
+            }else{
+                echo 'si guardo';
+            };
         }
         public function show($id){
             $data = array();
@@ -51,15 +54,15 @@ class UserController {
             $roleSql = ("SELECT * FROM roles WHERE id='$rol' ");
             $roleName2 = mysqli_query($mysqli,$roleSql);
             $roleName = mysqli_fetch_array($roleName2);
-            array_push($data,array("id" => $user["id"],"user" => $user["user"],"email" => $user["email"],"rol" => $roleName["name"]));
+            array_push($data,array("id" => $user["id"],"user" => $user["user"],"email" => $user["email"],"rol" => $roleName["name"], "role_id" => $roleName["id"]));
             echo json_encode($data);
         }
         public function delete($id){
             $mysqli = $this->mysqli->conexion();
             $sqlborrar="DELETE FROM user WHERE id=$id";
             $resborrar=mysqli_query($mysqli,$sqlborrar);
+
             echo '<script>alert("REGISTRO ELIMINADO")</script> ';
-            echo "<script>location.href='admin.php'</script>";
         }
 
         public function create($data){

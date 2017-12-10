@@ -24,6 +24,8 @@ session_start();
   <!-- Custom styles for this template -->
   <link href="public/css/styles.css" rel="stylesheet">
   <script src="public/js/jquery-3.2.1.min.js"></script>
+  <link href="public/css/toastr.min.css" rel="stylesheet">
+  <script src="public/js/toastr.min.js"></script>
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -35,28 +37,103 @@ session_start();
 
 <body>
 
-  <?php require 'includes/nav.php'?>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+          aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">ESIS</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li >
+            <a href="dashboard.php">Dashboard</a>
+          </li>
+          <li class="active">
+            <a href="dashboard.php">Usuarios</a>
+          </li>
+          <li>
+            <a href="roles.php">Roles</a>
+          </li>
+          <li>
+            <a href="politicas.php">Politicas</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Bienvenido <?php echo $_SESSION['user']; ?> </a>
+          </li>
+          <li>
+            <a href="desconectar.php">Logout</a>
+          </li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+  </nav>
 
-  <?php require 'includes/header.php'?>
-  <?php require 'includes/bread.php'?>
+  <header id="header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10">
+          <h1>
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard
+            <small>Seguridad Informatica</small>
+          </h1>
+        </div>
+        <div class="col-md-2">
+          <div class="dropdown create-button">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="true">
+              Crear
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li>
+                <a type="button" data-toggle="modal" class="create-user" data-target="#addUser">Crear Usuario</a>
+              </li>
+              <li>
+                <a type="button" class="create-role" data-toggle="modal" data-target="#addRole">Crear Role</a>
+              </li>
 
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <section id="breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb">
+        <li class="active">
+          <a href="dashboard.php">Dashboard</a>
+        </li>
+      </ol>
+    </div>
+  </section>
   <section id="main">
     <div class="container">
       <div class="row">
         <div class="col-md-3 side-panel">
           <div class="list-group overview-side-panel">
-            <a href="index.html" class="list-group-item">
+            <a href="dashboard.php" class="list-group-item">
               <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard
             </a>
-            <a href="pages.html" class="list-group-item active">
+            <a href="dashboard.php" class="list-group-item active">
               <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Usuarios
               <span class="badge">62</span>
             </a>
-            <a href="posts.html" class="list-group-item">
+            <a href="roles.php" class="list-group-item">
               <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Roles
               <span class="badge">342</span>
             </a>
-            <a href="users.html" class="list-group-item">
+            <a href="politicas.php" class="list-group-item">
               <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Politicas
               <span class="badge">12</span>
             </a>
@@ -84,25 +161,13 @@ session_start();
                     <th class="text-center">ID</th>
                     <th>Nombre</th>
                     <th>Email</th>
-                    <th>Contraseña</th>
+                    <!-- <th>Contraseña</th> -->
                     <th>Rol</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody id="list-user">
-                  <!-- <tr>
-                    <td>1</td>
-                    <td>This is my first post</td>
-                    <td>
-                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                    </td>
-                    <td>Jan 12, 2009</td>
-                    <td>Jan 12, 2009</td>
-                    <td>
-                      <a type="button" data-toggle="modal" data-target="#addPage" class="btn btn-warning btn-xs">Edit</a>
-                      <a href="#" class="btn btn-danger btn-xs">Delete</a>
-                    </td>
-                  </tr> -->
+
                 </tbody>
               </table>
             </div>
@@ -116,8 +181,8 @@ session_start();
   </section>
   <!-- Modals -->
 
-  <!-- Add Page -->
-  <div class="modal fade" id="addPage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <!-- Add User -->
+  <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog page-editor" role="document">
       <div class="modal-content">
         <form action="" id="edit-user">
@@ -125,15 +190,16 @@ session_start();
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel">Editar Usuario</h4>
+            <h4 class="modal-title" id="myModalLabel"></h4>
           </div>
+          <input type="hidden" class="form-control" id="id-edit" value="" name="id">
           <div class="modal-body">
             <div class="form-group">
-              <label for="title">Nombre del Usuario</label>
+              <label for="name">Nombre del Usuario</label>
               <input type="text" class="form-control" id="name-edit" name="name">
             </div>
             <div class="form-group">
-              <label for="body">Direccion de Correo Electronico</label>
+              <label for="email">Direccion de Correo Electronico</label>
               <input type="email" class="form-control" id="email-edit" name="email">
               <!-- <textarea type="text" class="form-control" name="editor1" id="body" rows="9"></textarea> -->
             </div>
@@ -143,23 +209,63 @@ session_start();
               </label>
             </div> -->
             <div class="form-group">
-              <label for="meta-tags">Contraseña</label>
+              <label for="password">Contraseña</label>
               <input type="password" class="form-control" id="password-edit" name="password">
             </div>
+
+
             <div class="form-group">
-              <label for="meta-description">Rol del usuario</label>
-              <input type="text" class="form-control" id="rol-edit" name="rol">
+              <label for="rol">Rol para el usuario</label>
+              <select class="form-control" id="user-roles" name="rol" placeholder="Seleccione un Rol"></select>
             </div>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <button href="#" id="register" class="btn btn-primary">Guardar Cambios</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 
+  <!-- Add Role -->
+  <div class="modal fade" id="addRole" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog page-editor" role="document">
+      <div class="modal-content">
+        <form action="" id="edit-role">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel"></h4>
+          </div>
+          <input type="hidden" class="form-control" id="id-edit" value="" name="id">
+
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="name">Nombre del Role</label>
+              <input type="text" class="form-control" id="name-edit" name="name">
+            </div>
+            <div class="form-group">
+              <label for="description">Descripcion del Role</label>
+              <input type="text" class="form-control" id="description-edit" name="description">
+              <!-- <textarea type="text" class="form-control" name="editor1" id="body" rows="9"></textarea> -->
+            </div>
+
+            <div class="form-group">
+              <label for="politicas">Politicas del Rol</label>
+              <select class="form-control" id="politicas-roles" name="politicas" placeholder="Seleccione un Rol" multiple></select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button href="#" id="register" class="btn btn-primary">Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

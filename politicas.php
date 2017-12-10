@@ -51,16 +51,16 @@ session_start();
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           <li >
-            <a href="">Dashboard</a>
+            <a href="dashboard.php">Dashboard</a>
           </li>
           <li>
-            <a href="">Usuarios</a>
+            <a href="dashboard.php">Usuarios</a>
           </li>
           <li >
-            <a href="">Roles</a>
+            <a href="roles.php">Roles</a>
           </li>
           <li class="active">
-            <a href="">Politicas</a>
+            <a href="politicas.php">Politicas</a>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -110,7 +110,7 @@ session_start();
     <div class="container">
       <ol class="breadcrumb">
         <li class="active">
-          <a href="index.html">Dashboard</a>
+          <a href="dashboard.php">Dashboard</a>
         </li>
       </ol>
     </div>
@@ -121,18 +121,18 @@ session_start();
       <div class="row">
         <div class="col-md-3 side-panel">
           <div class="list-group overview-side-panel">
-            <a href="index.html" class="list-group-item">
+            <a href="dashboard.php" class="list-group-item">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard
             </a>
-            <a href="pages.html" class="list-group-item">
+            <a href="dashboard.php" class="list-group-item">
                 <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Usuarios
                 <span class="badge">62</span>
             </a>
-            <a href="posts.html" class="list-group-item ">
+            <a href="roles.php" class="list-group-item ">
               <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Roles
               <span class="badge">342</span>
             </a>
-            <a href="users.html" class="list-group-item active">
+            <a href="politicas.php" class="list-group-item active">
               <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Politicas
               <span class="badge">12</span>
             </a>
@@ -243,6 +243,7 @@ session_start();
   <script src="public/js/ie10-viewport-bug-workaround.js"></script>
   <!-- Custom JS -->
   <script src="public/js/custom.js"></script>
+  <script src="public/js/URI.min.js"></script>
 </body>
 
 </html>

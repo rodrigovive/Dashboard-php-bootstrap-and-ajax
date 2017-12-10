@@ -27,14 +27,24 @@
         $user->create($data);
     }
     if ($_POST['accion']=='editUser'){
-        extract($_GET);
+        $data = array();
+        $data['email'] = $_POST['email'];
+        $data['name'] = $_POST['name'];
+        $data['rol'] = $_POST['rol'];
+        $data['password'] = $_POST['password'];
+        $id = $_POST['id'];
         $user = new User;
-        $user->update($id);
+        $user->update($id,$data);
     };
     if ($_POST['accion']=='showUser'){
         $id = $_POST['id'];
         $user = new User;
         $user->show($id);
+    }
+    if ($_POST['accion']=='showRole'){
+        $id = $_POST['id'];
+        $role = new Role;
+        $role->show($id);
     }
     if ($_POST['accion']=='deleteUser'){
         extract($_GET);
@@ -57,4 +67,23 @@
         $role = new Role;
         $role->create($data);
     }
+    if ($_POST['accion']=='deleteRole'){
+        $id = $_POST['id'];
+        $role = new Role;
+        $role->delete($id);
+    }
+    if ($_POST['accion']=='deleteUser'){
+        $id = $_POST['id'];
+        $user = new User;
+        $user->delete($id);
+    }
+    if ($_POST['accion']=='editRole'){
+        $data = array();
+        $data['name'] = $_POST['name'];
+        $data['description'] = $_POST['description'];
+        $data['politicas'] = $_POST['politicas'];
+        $id = $_POST['id'];
+        $role = new Role;
+        $role->update($id,$data);
+    };
 ?>

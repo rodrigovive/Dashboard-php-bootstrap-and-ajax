@@ -24,7 +24,7 @@ session_start();
   <!-- Custom styles for this template -->
   <link href="public/css/styles.css" rel="stylesheet">
   <script src="public/js/jquery-3.2.1.min.js"></script>
-  
+
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -51,16 +51,16 @@ session_start();
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           <li >
-            <a href="">Dashboard</a>
+            <a href="dashboard.php">Dashboard</a>
           </li>
           <li>
-            <a href="">Usuarios</a>
+            <a href="dashboard.php">Usuarios</a>
           </li>
-          <li class="active">
-            <a href="">Roles</a>
+          <li  class="active">
+            <a href="roles.php">Roles</a>
           </li>
           <li>
-            <a href="">Politicas</a>
+            <a href="politicas.php">Politicas</a>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -93,10 +93,10 @@ session_start();
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
               <li>
-                <a type="button" data-toggle="modal" data-target="#addPage">Crear Usuario</a>
+                <a type="button" data-toggle="modal" class="create-user" data-target="#addUser">Crear Usuario</a>
               </li>
               <li>
-                <a href="#">Crear Role</a>
+                <a type="button" class="create-role" data-toggle="modal" data-target="#addRole">Crear Role</a>
               </li>
 
             </ul>
@@ -110,7 +110,7 @@ session_start();
     <div class="container">
       <ol class="breadcrumb">
         <li class="active">
-          <a href="index.html">Dashboard</a>
+          <a href="dashboard.php">Dashboard</a>
         </li>
       </ol>
     </div>
@@ -121,18 +121,18 @@ session_start();
       <div class="row">
         <div class="col-md-3 side-panel">
           <div class="list-group overview-side-panel">
-            <a href="index.html" class="list-group-item">
+            <a href="dashboard.php" class="list-group-item">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard
             </a>
-            <a href="pages.html" class="list-group-item">
+            <a href="dashboard.php" class="list-group-item">
                 <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Usuarios
                 <span class="badge">62</span>
             </a>
-            <a href="posts.html" class="list-group-item active">
+            <a href="roles.php" class="list-group-item active">
               <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Roles
               <span class="badge">342</span>
             </a>
-            <a href="users.html" class="list-group-item">
+            <a href="politicas.php" class="list-group-item">
               <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Politicas
               <span class="badge">12</span>
             </a>
@@ -190,52 +190,88 @@ session_start();
   </section>
   <!-- Modals -->
 
-  <!-- Add Page -->
-  <div class="modal fade" id="addPage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <!-- Add User -->
+    <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog page-editor" role="document">
       <div class="modal-content">
-        <form action="">
+        <form action="" id="edit-user">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel">Add Page</h4>
+            <h4 class="modal-title" id="myModalLabel"></h4>
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label for="title">Page Title</label>
-              <input type="text" class="form-control" id="title" name="title">
+              <label for="name">Nombre del Usuario</label>
+              <input type="text" class="form-control" id="name-edit" name="name">
             </div>
             <div class="form-group">
-              <label for="body">Page Body</label>
-              <textarea type="text" class="form-control" name="editor1" id="body" rows="9"></textarea>
-            </div>
-            <div class="checkbox">
-              <label for="checkbox">
-                <input type="checkbox" id="checkbox"> Published
-              </label>
+              <label for="email">Direccion de Correo Electronico</label>
+              <input type="email" class="form-control" id="email-edit" name="email">
+              <!-- <textarea type="text" class="form-control" name="editor1" id="body" rows="9"></textarea> -->
             </div>
             <div class="form-group">
-              <label for="meta-tags">Meta Tags</label>
-              <input type="text" class="form-control" id="meta-tags" name="meta-tags">
+              <label for="password">Contraseña</label>
+              <input type="password" class="form-control" id="password-edit" name="password">
             </div>
+
+
             <div class="form-group">
-              <label for="meta-description">Meta Description</label>
-              <input type="text" class="form-control" id="meta-description" name="meta-description">
+              <label for="rol">Rol para el usuario</label>
+              <select class="form-control" id="user-roles" name="rol" placeholder="Seleccione un Rol"></select>
             </div>
+
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 
-  <script>
-    CKEDITOR.replace('editor1');
-  </script>
+  <!-- Add Role -->
+  <div class="modal fade" id="addRole" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog page-editor" role="document">
+      <div class="modal-content">
+        <form action="" id="edit-role">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel"></h4>
+          </div>
+          <input type="hidden" class="form-control" id="id-edit" value="" name="id">
+
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="name">Nombre del Role</label>
+              <input type="text" class="form-control" id="name-edit" name="name">
+            </div>
+            <div class="form-group">
+              <label for="description">Descripcion del Role</label>
+              <input type="text" class="form-control" id="description-edit" name="description">
+              <!-- <textarea type="text" class="form-control" name="editor1" id="body" rows="9"></textarea> -->
+            </div>
+
+            <div class="form-group">
+              <label for="politicas">Politicas del Rol</label>
+              <select class="form-control" id="politicas-roles" name="politicas" placeholder="Seleccione un Rol" multiple></select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button href="#" id="register" class="btn btn-primary">Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
   <script src="public/js/dashboard.js"></script>
 
   <!-- Bootstrap core JavaScript

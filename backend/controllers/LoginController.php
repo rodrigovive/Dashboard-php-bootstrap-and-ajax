@@ -13,11 +13,18 @@
 					$query = "SELECT r.name,r.id FROM user AS u INNER JOIN roles as r ON u.rol = r.id WHERE r.id='$rol'";
 					$roluser = mysqli_query($mysqli,$query);
 					$rol = mysqli_fetch_array($roluser);
-					// echo ' rol adasds'.$rol["name"];
-					// echo $roluser;
-					// $roluser["id"];
+
+					$query23 = "SELECT politica_id FROM politica_role WHERE politica_role.role_id='$rol'";
+					$rolPolitica2= mysqli_query($mysqli,$query23);
+					$rolPolitica = mysqli_fetch_array($rolPolitica2);
+					$data = array();
+					array_push($data,array("id" => $rolPolitica["id"]));
+					while($rolPolitica = mysqli_fetch_array($rolPolitica)){
+						array_push($data,array("id" => $rolPolitica["id"]));
+					}
+					$_SESSION['politicas']=$data;
+					header("location:dashboard.php");
 					return $alert = '<script>alert("BIENVENIDO ADMINISTRADOR")</script> ';
-					// echo "<script>location.href='admin.php'</script>";
 				}
 			}elseif($pass!=$f2['password']){
 				return $alert = '<script>alert("CONTRASEÑA INCORRECTA")</script> ';
